@@ -1,3 +1,6 @@
+// local_library_user
+// library123
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -10,6 +13,10 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+// Set up mongoose connection
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://local_library_user:library123@ds125041.mlab.com:25041/local_library_spm';
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
