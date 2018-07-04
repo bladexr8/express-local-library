@@ -5,6 +5,7 @@ var BookInstance = require('../models/bookinstance');
 
 var async = require('async');
 
+// render Home Page
 exports.index = function(req, res) {
 
 	// Get Object Counts from MongoDB and Render Home Page
@@ -32,8 +33,14 @@ exports.index = function(req, res) {
 };
 
 // Display list of all books.
-exports.book_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: Book list');
+exports.book_list = function(req, res, next) {
+	Book.find({}, 'title author')
+		.populate('author')
+		.exec(function(err, list_books) {
+			if (err) { return next(err); }
+			// Successful so render
+			res.render('book_list', { title: 'Book list', book_list: list_books });
+		});
 };
 
 // Display detail page for a specific book.
