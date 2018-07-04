@@ -1,5 +1,3 @@
-// local_library_user
-// library123
 
 var createError = require('http-errors');
 var express = require('express');
@@ -17,7 +15,10 @@ var app = express();
 
 // Set up mongoose connection
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://local_library_user:library123@ds125041.mlab.com:25041/local_library_spm';
+var db_user = process.env.LOCAL_LIBRARY_DB_USER;
+var db_password = process.env.LOCAL_LIBRARY_DB_PASSWORD;
+var db_conn_string = process.env.LOCAL_LIBRARY_DB_STRING;
+var mongoDB = `mongodb://${db_user}:${db_password}@${db_conn_string}`
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
